@@ -96,5 +96,20 @@ namespace Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteCommand(int id)
+        {
+            var commandFromRepo = _repo.GetCommandById(id);
+
+            if( commandFromRepo == null )
+            {
+                return NotFound();
+            }
+
+            _repo.DeleteCommand(commandFromRepo);
+            _repo.SaveChanges();
+            return NoContent();
+        }
     }
 }
